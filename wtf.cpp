@@ -35,30 +35,14 @@ std::string cascadeDecrypt (std::string_view&& ct)
     std::string deck = alpha.data();
     std::string pt = "";
 
-    for (size_t i = 0; i < 26; ++i)
-    {
-        if (ct[0] == deck[i])
-        {
-            pt += alpha[i - 1];
-            std::reverse(deck.begin(), deck.begin() + i);
-            std::rotate(deck.begin(), deck.begin() + i, deck.end());
-            break;
-        }
-    }
+    size_t idx;
 
-    for (uint64_t j = 1; j < ct.size(); ++j)
+    for (const char& ch : ct)
     {
-        for (size_t i = 0; i < 26; ++i)
-        {
-            if (ct[j] == deck[i])
-            {
-                //std::println("{}", i);
-                std::reverse(deck.begin(), deck.begin() + i);
-                std::rotate(deck.begin(), deck.begin() + i, deck.end());
-                pt += alpha[i - 1];
-                //std::println("{}", deck);
-            }
-        }
+        idx = deck.find(ch);
+        std::reverse(deck.begin(), deck.begin() + idx);
+        std::rotate(deck.begin(), deck.begin() + idx, deck.end());
+        pt += alpha[idx - 1];
     }
 
     return pt;
@@ -66,8 +50,7 @@ std::string cascadeDecrypt (std::string_view&& ct)
 
 int main ()
 {
-    std::string ct = 
-    "URILURQZUSVTSHMZRUGB";
+    std::string ct = "URILURQZUSVTSHMZRUGB";
 
     std::println("{} -> {}", ct, cascadeDecrypt(std::string_view(ct)));
 
