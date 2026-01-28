@@ -5,14 +5,15 @@
 std::string_view alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 [[nodiscard]]
-inline size_t alphaVal (const char ch) {
+inline uint64_t alphaVal (const char ch) {
     return ch - 'A' + 1;
 }
 
 [[nodiscard]]
 std::string cascadeEncrypt (std::string_view&& pt)
 {
-    std::string deck = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //can change this to the initial state
+    std::string deck = alpha.data();
 
     std::string ct = "";
 
@@ -30,10 +31,11 @@ std::string cascadeEncrypt (std::string_view&& pt)
 [[nodiscard]]
 std::string cascadeDecrypt (std::string_view&& ct)
 {
-    std::string deck = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //can change this to the initial state
+    std::string deck = alpha.data();
     std::string pt = "";
 
-    for (int i = 0; i < 26; ++i)
+    for (size_t i = 0; i < 26; ++i)
     {
         if (ct[0] == deck[i])
         {
@@ -44,7 +46,7 @@ std::string cascadeDecrypt (std::string_view&& ct)
         }
     }
 
-    for (int j = 1; j < ct.size(); ++j)
+    for (uint64_t j = 1; j < ct.size(); ++j)
     {
         for (size_t i = 0; i < 26; ++i)
         {
