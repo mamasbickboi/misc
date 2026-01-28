@@ -10,7 +10,7 @@ inline size_t alphaVal (const char ch) {
 }
 
 [[nodiscard]]
-std::string cascadeEncrypt (std::string_view& pt)
+std::string cascadeEncrypt (std::string_view&& pt)
 {
     std::string deck = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
