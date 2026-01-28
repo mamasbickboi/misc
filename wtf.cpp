@@ -5,7 +5,7 @@
 std::string_view alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 [[nodiscard]]
-uint64_t alphaVal (const char ch) {
+size_t alphaVal (const char ch) {
     return ch - 'A' + 1;
 }
 
